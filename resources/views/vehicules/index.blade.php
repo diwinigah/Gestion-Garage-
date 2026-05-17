@@ -24,8 +24,8 @@
 
         {{-- Barre de recherche --}}
         <div class="bg-card p-4 rounded-lg border border-border shadow-sm">
-            <form method="GET" action="{{ route('vehicules.index') }}" class="flex gap-4">
-                <div class="w-96">
+            <form method="GET" action="{{ route('vehicules.index') }}" class="flex flex-col sm:flex-row gap-4">
+                <div class="w-full sm:max-w-sm">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Rechercher par immatriculation..." class="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent">
                 </div>
                 <button type="submit" class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
@@ -96,7 +96,7 @@
                         </div>
 
                         {{-- Actions --}}
-                        <div class="flex gap-2 mt-6">
+                        <div class="flex flex-col sm:flex-row gap-2 mt-6">
                             <a href="{{ route('vehicules.show', $vehicule->id) }}" class="flex-1 inline-flex justify-center items-center px-3 py-2 border border-border rounded-lg text-sm font-medium text-foreground bg-background hover:bg-muted transition-colors">
                                 Voir
                             </a>

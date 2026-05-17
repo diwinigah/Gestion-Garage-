@@ -5,7 +5,7 @@
 @section('content')
 <div class="px-4 py-6 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
     <div class="space-y-6">
-    <div class="flex items-center justify-between">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 class="text-3xl font-bold text-foreground">Réparations</h1>
         <p class="text-muted-foreground">Gestion des interventions et réparations</p>
     </div>
@@ -17,8 +17,8 @@
 
     {{-- Barre de recherche --}}
     <div class="bg-card p-4 rounded-lg border border-border shadow-sm">
-        <form method="GET" action="{{ route('reparations.index') }}" class="flex gap-4">
-            <div class="w-96">
+        <form method="GET" action="{{ route('reparations.index') }}" class="flex flex-col sm:flex-row gap-4">
+            <div class="w-full sm:max-w-sm">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Rechercher par immatriculation, marque, modèle, description ou statut..." class="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent">
             </div>
             <button type="submit" class="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
@@ -105,7 +105,7 @@
                     @endif
 
                     {{-- Actions --}}
-                    <div class="flex gap-2 mt-4">
+                    <div class="flex flex-col sm:flex-row gap-2 mt-4">
                         <a href="{{ route('reparations.show', $reparation->id) }}" class="flex-1 inline-flex justify-center items-center px-3 py-2 border border-border rounded-lg text-sm font-medium text-foreground bg-background hover:bg-muted transition-colors">
                             Voir
                         </a>

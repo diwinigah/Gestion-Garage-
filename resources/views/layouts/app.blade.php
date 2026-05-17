@@ -6,93 +6,45 @@
     <meta name="color-scheme" content="light dark">
     <title>@yield('title', 'Gestion Garage')</title>
 
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 </head>
-<body class="bg-background text-foreground font-sans transition-colors duration-300 flex flex-col lg:flex-row" x-data="{ sidebarOpen: false }" @keydown.escape.window="sidebarOpen = false">
+<body class="app-body bg-background text-foreground font-sans transition-colors duration-300">
+<div class="app-shell" data-sidebar-state="closed">
+    <button type="button" class="sidebar-overlay" data-sidebar-close aria-label="Fermer le menu"></button>
 
-{{-- Overlay pour mobile --}}
-<div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden transition-opacity duration-300" x-transition:enter="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="opacity-100" x-transition:leave-end="opacity-0"></div>
+    <aside class="app-sidebar" id="app-sidebar" aria-label="Navigation principale">
+        @include('components.sidebar')
+    </aside>
 
-{{-- Sidebar mobile --}}
-<aside x-show="sidebarOpen" class="fixed left-0 top-0 h-screen w-64 bg-card border-r border-border z-50 lg:hidden" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
-    @include('components.sidebar')
-</aside>
+    <div class="app-content">
+        <header class="mobile-topbar">
+            <button type="button" class="hamburger-button" data-sidebar-toggle aria-controls="app-sidebar" aria-expanded="false" aria-label="Ouvrir le menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
 
-{{-- Sidebar desktop --}}
-<aside class="hidden lg:flex flex-col w-64 bg-card border-r border-border flex-shrink-0">
-    @include('components.sidebar')
-</aside>
+            <a href="/" class="mobile-brand" aria-label="Accueil Gestion Garage">Gestion Garage</a>
 
-{{-- Contenu principal --}}
-<main class="flex-1 flex flex-col min-h-screen pt-16 lg:pt-0">
-    <div class="flex-1 overflow-y-auto">
-        @yield('content')
+            <button type="button" class="mobile-theme-button theme-toggle" aria-label="Basculer le thème">
+                <svg class="theme-icon theme-icon-light" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+                <svg class="theme-icon theme-icon-dark hidden" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+            </button>
+        </header>
+
+        <main class="main-content">
+            @yield('content')
+        </main>
     </div>
-</main>
-
-{{-- Bouton menu mobile --}}
-<button @click="sidebarOpen = true" class="fixed bottom-6 left-6 z-40 lg:hidden p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 transition-colors">
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-    </svg>
-</button>
-
-{{-- Scripts --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Toggle thème
-        const themeToggles = document.querySelectorAll('.theme-toggle');
-        const html = document.documentElement;
-
-        if (themeToggles.length > 0) {
-            // Vérifier la préférence sauvegardée ou défaut au mode clair
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            if (currentTheme === 'dark') {
-                html.classList.add('dark');
-                updateThemeIcons('dark');
-            } else {
-                updateThemeIcons('light');
-            }
-
-            themeToggles.forEach(toggle => {
-                toggle.addEventListener('click', () => {
-                    if (html.classList.contains('dark')) {
-                        html.classList.remove('dark');
-                        localStorage.setItem('theme', 'light');
-                        updateThemeIcons('light');
-                    } else {
-                        html.classList.add('dark');
-                        localStorage.setItem('theme', 'dark');
-                        updateThemeIcons('dark');
-                    }
-                });
-            });
-        }
-
-        function updateThemeIcons(theme) {
-            const lightIcons = document.querySelectorAll('.theme-icon-light');
-            const darkIcons = document.querySelectorAll('.theme-icon-dark');
-            if (theme === 'dark') {
-                lightIcons.forEach(icon => icon.classList.add('hidden'));
-                darkIcons.forEach(icon => icon.classList.remove('hidden'));
-            } else {
-                lightIcons.forEach(icon => icon.classList.remove('hidden'));
-                darkIcons.forEach(icon => icon.classList.add('hidden'));
-            }
-        }
-    });
-
-    // Fermer sidebar sur redimensionnement desktop
-    window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
-            const sidebarData = document.querySelector('[x-data*="sidebarOpen"]');
-            if (sidebarData && sidebarData.__x) {
-                sidebarData.__x.$data.sidebarOpen = false;
-            }
-        }
-    });
-</script>
-
+</div>
 </body>
 </html>

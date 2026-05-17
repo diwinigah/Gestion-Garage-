@@ -2,9 +2,9 @@
 <div class="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
     {{-- En-tête avec recherche --}}
     <div class="px-6 py-4 border-b border-border">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <h3 class="text-lg font-semibold text-foreground">{{ $title ?? 'Tableau de données' }}</h3>
-            <div class="flex items-center space-x-4">
+            <div class="flex flex-col sm:flex-row items-center gap-4">
                 {{-- Recherche --}}
                 @if(!isset($disableSearch) || !$disableSearch)
                 <div class="relative">
@@ -27,8 +27,8 @@
         </div>
     </div>
 
-    {{-- Tableau --}}
-    <div class="overflow-x-auto">
+    {{-- Tableau Desktop --}}
+    <div class="overflow-x-auto hidden sm:block">
         <table class="w-full">
             <thead class="bg-muted/50">
                 <tr>
@@ -93,6 +93,50 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
+
+    {{-- Tableau Mobile (Cards) --}}
+    <div class="block sm:hidden space-y-4">
+        @forelse($rows as $row)
+            <div class="bg-card rounded-xl border border-border p-4 shadow-sm">
+                <div class="space-y-3">
+                    @foreach($headers as $header)
+                        <div class="flex justify-between items-start gap-4">
+                            <span class="text-xs font-medium text-muted-foreground uppercase tracking-wider">{{ $header['label'] }}</span>
+                            <span class="text-sm text-foreground text-right">
+                                @php
+                                    $fieldKey = $header['key'] ?? strtolower(str_replace([' ', 'é', 'è', 'ê', 'à', 'â', 'ô', 'û', 'ï', 'ü'], ['_', 'e', 'e', 'e', 'a', 'a', 'o', 'u', 'i', 'u'], $header['label']));
+                                @endphp
+                                @if($fieldKey === 'statut')
+                                    <x-status-badge :status="$row[$fieldKey] ?? 'en_attente'" />
+                                @else
+                                    {{ $row[$fieldKey] ?? '-' }}
+                                @endif
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="mt-4 pt-4 border-t border-border flex flex-wrap gap-2">
+                    @if(isset($row['actions']))
+                        @foreach($row['actions'] as $action)
+                            <a href="{{ $action['url'] ?? '#' }}"
+                               @if(isset($action['onclick'])) onclick="{{ $action['onclick'] }}" @endif
+                               class="flex-1 text-center px-3 py-2 text-sm font-medium rounded-lg text-{{ $action['color'] ?? 'primary' }}-600 bg-{{ $action['color'] ?? 'primary' }}-600/10 hover:bg-{{ $action['color'] ?? 'primary' }}-600/20 transition-colors">
+                                {{ $action['label'] }}
+                            </a>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        @empty
+            <div class="text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-muted-foreground/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-foreground">Aucune donnée</h3>
+                <p class="mt-1 text-sm text-muted-foreground">Commencez par ajouter des éléments.</p>
+            </div>
+        @endforelse
     </div>
 
     {{-- Pagination --}}

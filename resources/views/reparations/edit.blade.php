@@ -60,7 +60,7 @@
             </select>
         </div>
 
-        <div class="flex space-x-4">
+        <div class="flex flex-col sm:flex-row gap-4">
             <button type="submit" class="bg-accent hover:bg-accent-700 text-accent-foreground font-semibold py-2 px-4 rounded-lg shadow transition-colors">Mettre à jour</button>
             <a href="{{ route('vehicules.show', $reparation->vehicule_id) }}" class="bg-muted hover:bg-muted-foreground/10 text-muted-foreground font-semibold py-2 px-4 rounded-lg shadow transition-colors">Retour au véhicule</a>
         </div>
