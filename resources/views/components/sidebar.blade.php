@@ -36,6 +36,13 @@
             <span>Réparations</span>
         </a>
 
+        <a href="{{ route('appointments.index') }}" data-sidebar-close class="sidebar-link {{ request()->routeIs('appointments.index') ? 'is-active' : '' }}">
+            <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3M5 11h14M6 21h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z"></path>
+            </svg>
+            <span>Rendez-vous</span>
+        </a>
+
         <a href="{{ route('techniciens.index') }}" data-sidebar-close class="sidebar-link {{ request()->routeIs('techniciens*') ? 'is-active' : '' }}">
             <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"></path>
@@ -54,5 +61,14 @@
             </svg>
             <span>Mode sombre</span>
         </button>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="sidebar-link sidebar-logout">
+                <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m12 0-4-4m4 4-4 4m6-10h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"></path>
+                </svg>
+                <span>Déconnexion</span>
+            </button>
+        </form>
     </div>
 </div>

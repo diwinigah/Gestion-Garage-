@@ -3,57 +3,94 @@
 @section('title', 'Ajouter une réparation')
 
 @section('content')
-<div class="px-4 py-6 sm:px-6 lg:px-8 max-w-2xl mx-auto w-full">
-    <div class="bg-card text-card-foreground rounded-lg shadow-md p-6">
-    <h1 class="text-3xl font-bold mb-6 text-primary">Ajouter une réparation</h1>
-
-    @if ($errors->any())
-        <ul class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
-    <p class="mb-6 p-4 bg-muted rounded-lg"><strong class="text-muted-foreground">Véhicule :</strong> {{ $vehicule->immatriculation }} – {{ $vehicule->marque }} {{ $vehicule->modele }}</p>
-
-    <form method="POST" action="{{ route('reparations.store') }}" class="space-y-6">
-        @csrf
-        <input type="hidden" name="vehicule_id" value="{{ $vehicule->id }}">
-
+<div class="page">
+    <div class="page-header">
         <div>
-            <label for="date_debut" class="block text-sm font-medium text-foreground">Date début *</label>
-            <input type="date" name="date_debut" id="date_debut" required class="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent">
+            <h1 class="page-title">Ajouter une réparation</h1>
+            <p class="page-subtitle">
+                @isset($appointment)
+                    Depuis le rendez-vous de {{ $appointment->full_name }}.
+                @else
+                    Créer une intervention pour un véhicule enregistré.
+                @endisset
+            </p>
         </div>
-
-        <div>
-            <label for="date_fin" class="block text-sm font-medium text-foreground">Date fin</label>
-            <input type="date" name="date_fin" id="date_fin" class="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent">
-        </div>
-
-        <div>
-            <label for="description" class="block text-sm font-medium text-foreground">Description *</label>
-            <textarea name="description" id="description" required rows="4" class="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"></textarea>
-        </div>
-
-        <div>
-            <label for="technicien_id" class="block text-sm font-medium text-foreground">Technicien</label>
-            <select name="technicien_id" id="technicien_id" class="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent">
-                <option value="">— Non assigné —</option>
-                @foreach ($techniciens as $technicien)
-                    <option value="{{ $technicien->id }}">
-                        {{ $technicien->nom }} {{ $technicien->prenom }} ({{ $technicien->specialite }})
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-4">
-            <button type="submit" class="bg-accent hover:bg-accent-700 text-accent-foreground font-semibold py-2 px-4 rounded-lg shadow transition-colors">Enregistrer</button>
-            <a href="{{ route('vehicules.show', $vehicule->id) }}" class="bg-muted hover:bg-muted-foreground/10 text-muted-foreground font-semibold py-2 px-4 rounded-lg shadow transition-colors">Retour</a>
-        </div>
-    </form>
     </div>
-</div>
 
+    <section class="panel" style="margin-top: 1rem;">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
+        @isset($appointment)
+            <div class="alert">
+                <strong>Rendez-vous :</strong> {{ $appointment->full_name }} - {{ $appointment->phone }}<br>
+                <strong>Véhicule demandé :</strong> {{ $appointment->vehicle }}<br>
+                <strong>Date souhaitée :</strong> {{ $appointment->desired_date?->format('d/m/Y') }}
+            </div>
+        @else
+            <div class="alert">
+                <strong>Véhicule :</strong> {{ $vehicule->immatriculation }} - {{ $vehicule->marque }} {{ $vehicule->modele }}
+            </div>
+        @endisset
+
+        <form method="POST" action="{{ route('reparations.store') }}" class="form-grid">
+            @csrf
+
+            @isset($appointment)
+                <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
+                <div class="form-field-full">
+                    <label class="form-label" for="vehicule_id">Véhicule enregistré</label>
+                    <select class="form-control" name="vehicule_id" id="vehicule_id" required>
+                        <option value="">Choisir un véhicule</option>
+                        @foreach($vehicules as $item)
+                            <option value="{{ $item->id }}" @selected(old('vehicule_id', $vehicule?->id) == $item->id)>
+                                {{ $item->immatriculation }} - {{ $item->marque }} {{ $item->modele }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <small class="muted">Si le véhicule n'existe pas encore, ajoutez-le d'abord dans la section Véhicules.</small>
+                </div>
+            @else
+                <input type="hidden" name="vehicule_id" value="{{ $vehicule->id }}">
+            @endisset
+
+            <div class="form-field">
+                <label class="form-label" for="date_debut">Date début</label>
+                <input class="form-control" type="date" name="date_debut" id="date_debut" value="{{ old('date_debut', isset($appointment) ? $appointment->desired_date?->format('Y-m-d') : '') }}" required>
+            </div>
+
+            <div class="form-field">
+                <label class="form-label" for="date_fin">Date fin</label>
+                <input class="form-control" type="date" name="date_fin" id="date_fin" value="{{ old('date_fin') }}">
+            </div>
+
+            <div class="form-field-full">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" name="description" id="description" required>@isset($appointment){{ old('description', "Client: {$appointment->full_name}\nTéléphone: {$appointment->phone}\nVéhicule demandé: {$appointment->vehicle}\nProblème: {$appointment->problem_description}") }}@else{{ old('description') }}@endisset</textarea>
+            </div>
+
+            <div class="form-field-full">
+                <label class="form-label" for="technicien_id">Technicien</label>
+                <select class="form-control" name="technicien_id" id="technicien_id">
+                    <option value="">Non assigné</option>
+                    @foreach ($techniciens as $technicien)
+                        <option value="{{ $technicien->id }}" @selected(old('technicien_id') == $technicien->id)>
+                            {{ $technicien->prenom }} {{ $technicien->nom }} ({{ $technicien->specialite }})
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-field-full actions-row">
+                <a class="btn-muted" href="@isset($appointment){{ route('appointments.index') }}@else{{ route('vehicules.show', $vehicule->id) }}@endisset">Retour</a>
+                <button class="btn" type="submit">Enregistrer</button>
+            </div>
+        </form>
+    </section>
+</div>
 @endsection

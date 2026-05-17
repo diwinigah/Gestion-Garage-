@@ -11,6 +11,7 @@ class Reparation extends Model
 
     protected $fillable = [
         'vehicule_id',
+        'appointment_id',
         'technicien_id',
         'date_debut',
         'date_fin',
@@ -31,5 +32,10 @@ class Reparation extends Model
     public function technicien()
     {
         return $this->belongsTo(Technicien::class);
+    }
+
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
     }
 }

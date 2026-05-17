@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Reparation;
 use App\Models\Vehicule;
 use App\Models\Technicien;
+use App\Models\Appointment;
 
 
 class ReparationController extends Controller
@@ -45,6 +46,17 @@ public function create($vehiculeId)
     return view('reparations.create', compact('vehicule', 'techniciens'));
 }
 
+public function createFromAppointment(Appointment $appointment)
+{
+    abort_unless($appointment->status === 'confirmed', 403, 'Le rendez-vous doit etre confirme avant de creer une reparation.');
+
+    $techniciens = Technicien::all();
+    $vehicules = Vehicule::orderBy('marque')->orderBy('modele')->get();
+    $vehicule = Vehicule::where('immatriculation', 'like', '%' . $appointment->vehicle . '%')->first();
+
+    return view('reparations.create', compact('appointment', 'vehicule', 'vehicules', 'techniciens'));
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -53,6 +65,7 @@ public function create($vehiculeId)
 {  
    $validated = $request->validate([
     'vehicule_id' => 'required|exists:vehicules,id',
+    'appointment_id' => 'nullable|exists:appointments,id',
     'technicien_id' => 'nullable|exists:techniciens,id',
     'date_debut' => 'required|date',
     'date_fin' => 'nullable|date|after_or_equal:date_debut',
@@ -61,6 +74,11 @@ public function create($vehiculeId)
 
 
     $reparation = Reparation::create($validated);
+
+    if (! empty($validated['appointment_id'])) {
+        Appointment::whereKey($validated['appointment_id'])->update(['status' => 'repair_created']);
+    }
+
     return redirect()->route('vehicules.show', $validated['vehicule_id'])
         ->with('success', 'Réparation créée avec succès.');
 
@@ -96,6 +114,7 @@ public function update(Request $request, $id)
 {
     $request->validate([
         'vehicule_id'   => 'required|exists:vehicules,id',
+        'appointment_id' => 'nullable|exists:appointments,id',
         'date_debut'    => 'required|date',
         'date_fin'      => 'nullable|date|after:date_debut',
         'description'   => 'required|string',
