@@ -11,10 +11,15 @@
             document.documentElement.classList.add('dark');
         }
     </script>
-    <link rel="stylesheet" href="{{ asset('css/garage.css') }}">
-    <script defer src="{{ asset('js/garage.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/darkmode.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <script defer src="{{ asset('js/darkmode.js') }}"></script>
+    <script defer src="{{ asset('js/sidebar.js') }}"></script>
+    <script defer src="{{ asset('js/app.js') }}"></script>
 </head>
-<body class="app-body bg-background text-foreground font-sans transition-colors duration-300">
+<body class="app-body">
 <div class="app-shell" data-sidebar-state="closed">
     <button type="button" class="sidebar-overlay" data-sidebar-close aria-label="Fermer le menu"></button>
 

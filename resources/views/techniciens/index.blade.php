@@ -33,7 +33,7 @@
                 'specialite' => $technicien->specialite ?? 'Non spécifiée',
                 'telephone' => $technicien->telephone ?? 'Non spécifié',
                 'email' => $technicien->email ?? 'Non spécifié',
-                'statut' => $technicien->statut ? 'Actif' : 'Inactif',
+                'statut' => $technicien->statut ? 'actif' : 'inactif',
                 'actions' => [
                     ['label' => 'Voir', 'url' => route('techniciens.show', $technicien->id), 'color' => 'blue'],
                     ['label' => 'Modifier', 'url' => route('techniciens.edit', $technicien->id), 'color' => 'green'],

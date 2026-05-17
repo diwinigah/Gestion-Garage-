@@ -133,7 +133,6 @@ class ComposerStaticInitbdc6d92507d397adf1c269ed49ec424d
             'Laravel\\Sail\\' => 13,
             'Laravel\\Prompts\\' => 16,
             'Laravel\\Pail\\' => 13,
-            'Laravel\\Breeze\\' => 15,
         ),
         'I' =>
         array (
@@ -435,10 +434,6 @@ class ComposerStaticInitbdc6d92507d397adf1c269ed49ec424d
         array (
             0 => __DIR__ . '/..' . '/laravel/pail/src',
         ),
-        'Laravel\\Breeze\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/laravel/breeze/src',
-        ),
         'Illuminate\\Support\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -536,11 +531,15 @@ class ComposerStaticInitbdc6d92507d397adf1c269ed49ec424d
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\AppointmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/AppointmentController.php',
+        'App\\Http\\Controllers\\Auth\\AdminAuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AdminAuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
+        'App\\Http\\Controllers\\ImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImageController.php',
         'App\\Http\\Controllers\\ReparationController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReparationController.php',
         'App\\Http\\Controllers\\TechnicienController' => __DIR__ . '/../..' . '/app/Http/Controllers/TechnicienController.php',
         'App\\Http\\Controllers\\VehiculeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VehiculeController.php',
+        'App\\Models\\Appointment' => __DIR__ . '/../..' . '/app/Models/Appointment.php',
         'App\\Models\\Reparation' => __DIR__ . '/../..' . '/app/Models/Reparation.php',
         'App\\Models\\Technicien' => __DIR__ . '/../..' . '/app/Models/Technicien.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
@@ -2986,12 +2985,6 @@ class ComposerStaticInitbdc6d92507d397adf1c269ed49ec424d
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
-        'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
-        'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
-        'Laravel\\Breeze\\Console\\InstallsApiStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsApiStack.php',
-        'Laravel\\Breeze\\Console\\InstallsBladeStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsBladeStack.php',
-        'Laravel\\Breeze\\Console\\InstallsInertiaStacks' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsInertiaStacks.php',
-        'Laravel\\Breeze\\Console\\InstallsLivewireStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsLivewireStack.php',
         'Laravel\\Pail\\Console\\Commands\\PailCommand' => __DIR__ . '/..' . '/laravel/pail/src/Console/Commands/PailCommand.php',
         'Laravel\\Pail\\Contracts\\Printer' => __DIR__ . '/..' . '/laravel/pail/src/Contracts/Printer.php',
         'Laravel\\Pail\\File' => __DIR__ . '/..' . '/laravel/pail/src/File.php',

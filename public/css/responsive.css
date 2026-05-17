@@ -1,0 +1,78 @@
+/* Responsive rules kept separate so InfinityFree can serve static CSS directly. */
+@media (min-width: 1024px) {
+    .app-sidebar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        width: var(--sidebar);
+        max-width: var(--sidebar);
+        height: 100dvh;
+        flex: 0 0 var(--sidebar);
+        transform: none;
+        box-shadow: none;
+    }
+
+    .main-content {
+        padding-top: 0;
+    }
+
+    .mobile-topbar,
+    .sidebar-overlay,
+    .sidebar-close {
+        display: none;
+    }
+}
+
+@media (max-width: 860px) {
+    .dashboard-grid,
+    .hero-inner {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header,
+    .toolbar,
+    .actions-row {
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 640px) {
+    .page {
+        width: min(100% - 1rem, 1180px);
+        padding-top: 1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .panel,
+    .auth-card,
+    .public-card {
+        border-radius: 0.85rem;
+        padding: 1rem;
+    }
+
+    .public-links {
+        gap: 0.65rem;
+        font-size: 0.9rem;
+    }
+
+    .btn,
+    .btn-muted,
+    .btn-danger,
+    .btn-success,
+    .btn-warning {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 1ms !important;
+        transition-duration: 1ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prendre rendez-vous - Gestion Garage</title>
-    <link rel="stylesheet" href="{{ asset('css/garage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/darkmode.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
 </head>
 <body class="public-page">
     <header class="public-header">

@@ -9,8 +9,11 @@
             document.documentElement.classList.add('dark');
         }
     </script>
-    <link rel="stylesheet" href="{{ asset('css/garage.css') }}">
-    <script defer src="{{ asset('js/garage.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/darkmode.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+    <script defer src="{{ asset('js/darkmode.js') }}"></script>
+    <script defer src="{{ asset('js/app.js') }}"></script>
 </head>
 <body>
     <main class="auth-page">

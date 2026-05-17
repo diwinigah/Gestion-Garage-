@@ -6,11 +6,15 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Controllers\\AppointmentController' => $baseDir . '/app/Http/Controllers/AppointmentController.php',
+    'App\\Http\\Controllers\\Auth\\AdminAuthController' => $baseDir . '/app/Http/Controllers/Auth/AdminAuthController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
+    'App\\Http\\Controllers\\ImageController' => $baseDir . '/app/Http/Controllers/ImageController.php',
     'App\\Http\\Controllers\\ReparationController' => $baseDir . '/app/Http/Controllers/ReparationController.php',
     'App\\Http\\Controllers\\TechnicienController' => $baseDir . '/app/Http/Controllers/TechnicienController.php',
     'App\\Http\\Controllers\\VehiculeController' => $baseDir . '/app/Http/Controllers/VehiculeController.php',
+    'App\\Models\\Appointment' => $baseDir . '/app/Models/Appointment.php',
     'App\\Models\\Reparation' => $baseDir . '/app/Models/Reparation.php',
     'App\\Models\\Technicien' => $baseDir . '/app/Models/Technicien.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
@@ -2456,12 +2460,6 @@ return array(
     'Illuminate\\View\\ViewFinderInterface' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
     'Illuminate\\View\\ViewName' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewName.php',
     'Illuminate\\View\\ViewServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
-    'Laravel\\Breeze\\BreezeServiceProvider' => $vendorDir . '/laravel/breeze/src/BreezeServiceProvider.php',
-    'Laravel\\Breeze\\Console\\InstallCommand' => $vendorDir . '/laravel/breeze/src/Console/InstallCommand.php',
-    'Laravel\\Breeze\\Console\\InstallsApiStack' => $vendorDir . '/laravel/breeze/src/Console/InstallsApiStack.php',
-    'Laravel\\Breeze\\Console\\InstallsBladeStack' => $vendorDir . '/laravel/breeze/src/Console/InstallsBladeStack.php',
-    'Laravel\\Breeze\\Console\\InstallsInertiaStacks' => $vendorDir . '/laravel/breeze/src/Console/InstallsInertiaStacks.php',
-    'Laravel\\Breeze\\Console\\InstallsLivewireStack' => $vendorDir . '/laravel/breeze/src/Console/InstallsLivewireStack.php',
     'Laravel\\Pail\\Console\\Commands\\PailCommand' => $vendorDir . '/laravel/pail/src/Console/Commands/PailCommand.php',
     'Laravel\\Pail\\Contracts\\Printer' => $vendorDir . '/laravel/pail/src/Contracts/Printer.php',
     'Laravel\\Pail\\File' => $vendorDir . '/laravel/pail/src/File.php',

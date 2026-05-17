@@ -1,0 +1,46 @@
+/* Dark mode overrides. The .dark class is toggled by public/js/darkmode.js. */
+.dark {
+    color-scheme: dark;
+    --bg: #0f172a;
+    --surface: #111827;
+    --surface-2: #1f2937;
+    --text: #f8fafc;
+    --muted: #cbd5e1;
+    --border: #334155;
+    --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+}
+
+.dark .public-header,
+.dark .mobile-topbar,
+.dark .sidebar-header {
+    background: rgba(17, 24, 39, 0.9);
+}
+
+.dark .sidebar-overlay {
+    background: rgba(0, 0, 0, 0.62);
+}
+
+.dark .status-pending,
+.dark .status-en_attente {
+    background: rgba(217, 119, 6, 0.18);
+    color: #fcd34d;
+}
+
+.dark .status-confirmed,
+.dark .status-en_cours {
+    background: rgba(37, 99, 235, 0.18);
+    color: #93c5fd;
+}
+
+.dark .status-completed,
+.dark .status-termine {
+    background: rgba(16, 185, 129, 0.18);
+    color: #86efac;
+}
+
+.dark .status-cancelled,
+.dark .status-annule,
+.dark .status-urgent {
+    background: rgba(220, 38, 38, 0.18);
+    color: #fca5a5;
+}
