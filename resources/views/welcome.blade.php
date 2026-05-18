@@ -11,7 +11,7 @@
 <body class="public-page">
     <header class="public-header">
         <nav class="public-nav">
-            <a class="sidebar-brand" href="{{ url('/') }}"><span class="sidebar-logo">GG</span><span>Garage Z</span></a>
+            <a class="sidebar-brand" href="{{ url('/') }}"><span class="sidebar-logo">G</span><span>Garage Z</span></a>
             <div class="public-links">
                 <a href="#services">Services</a>
                 <a href="#contact">Contact</a>

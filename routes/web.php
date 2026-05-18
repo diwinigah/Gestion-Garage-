@@ -11,7 +11,7 @@ use App\Http\Controllers\AppointmentController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::middleware('guest')->group(function () {

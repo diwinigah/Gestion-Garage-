@@ -1,0 +1,116 @@
+form {
+    width: 100%;
+}
+
+label {
+    display: inline-flex;
+    margin-bottom: 8px;
+    color: var(--ui-text);
+    font-size: 0.92rem;
+    font-weight: 800;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+select,
+textarea {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 13px;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius);
+    color: var(--ui-text);
+    background: rgba(255, 255, 255, 0.065);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+select {
+    cursor: pointer;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(216, 209, 195, 0.48);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(245, 184, 75, 0.62);
+    background: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 4px rgba(245, 184, 75, 0.12);
+    outline: none;
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"],
+.is-invalid,
+.invalid {
+    border-color: rgba(225, 75, 90, 0.78) !important;
+    box-shadow: 0 0 0 4px rgba(225, 75, 90, 0.12) !important;
+}
+
+.form-group,
+.field,
+.input-group,
+.mb-3 {
+    margin-bottom: 18px;
+}
+
+.form-grid,
+.fields-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-card,
+form.card,
+.login-card {
+    max-width: 980px;
+    margin: 24px auto;
+}
+
+.login-card,
+.auth-card,
+body[class*="login"] form {
+    max-width: 460px;
+}
+
+.invalid-feedback,
+.error-message,
+.form-error {
+    display: block;
+    margin-top: 7px;
+    color: #ff8a96;
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+.help-text,
+.form-text {
+    display: block;
+    margin-top: 7px;
+    color: var(--ui-muted);
+    font-size: 0.86rem;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ui-gold);
+}
+
+@media (max-width: 720px) {
+    .form-grid,
+    .fields-grid {
+        grid-template-columns: 1fr;
+    }
+}
